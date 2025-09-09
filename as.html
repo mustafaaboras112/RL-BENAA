@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RL BENAA - تصميم وتنفيذ وتسويق عقاري</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #34495e;
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            direction: rtl;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* شريط التنقل مع تأثيرات متقدمة */
+        .navbar {
+            transition: all 0.4s ease;
+            padding: 20px 0;
+            background: rgba(44, 62, 80, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar.navbar-shrink {
+            padding: 12px 0;
+            background: rgba(44, 62, 80, 0.98) !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            color: white !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-img {
+            height: 50px;
+            margin-left: 15px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+        }
+        
+        .navbar-shrink .logo-img {
+            height: 40px;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            margin: 0 15px;
+            position: relative;
+            color: rgba(255, 255, 255, 0.9) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            right: 0;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        /* تأثيرات دخول الشعار */
+        @keyframes logoEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px) rotate(-5deg) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0) scale(1);
+            }
+        }
+
+        .logo-entrance {
+            animation: logoEntrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        /* قسم الهيرو مع تأثيرات بارallax */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 180px 0 120px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            animation: wave 10s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1440px; }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-right: auto;
+            margin-left: auto;
+            font-weight: 300;
+        }
+        
+        .btn-primary {
+            background: var(--accent-color);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+            background: #c0392b;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+        
+        /* الأقسام العامة */
+        .section-padding {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            right: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .section-title.text-center::after {
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        /* البطاقات مع تأثيرات متقدمة */
+        .service-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            background: white;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-card .card-img-top {
+            transition: transform 0.7s ease;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .service-card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+        
+        .service-card .card-body {
+            padding: 30px;
+        }
+        
+        .service-card .card-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .service-card .card-text {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+        
+        /* فريق العمل */
+        .team-member {
+            transition: all 0.5s ease;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .team-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #f1f1f1;
+            transition: all 0.5s ease;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-member:hover .team-img {
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+        
+        .team-member h5 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .team-member p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        /* نموذج التواصل */
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 15px 20px;
+            border: 1px solid #e1e1e1;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            border-color: var(--secondary-color);
+        }
+        
+        /* التذييل */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 0;
+            left: 0;
+            height: 20px;
+            background: var(--gradient);
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px);
+            background: white;
+        }
+        
+        /* تأثيرات التمرير */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* تأثيرات النص */
+        .text-gradient {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* تأثيرات للهواتف */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .team-img {
+                width: 170px;
+                height: 170px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .logo-img {
+                height: 40px;
+            }
+            
+            .contact-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="re.png" alt="شعار RL BENAA" class="logo-img logo-entrance">
+                RL BENAA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">حول الشركة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">الخدمات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">المشاريع</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">الفريق</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">تواصل معنا</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="animate-on-scroll">RL BENAA - شركة تصميم وتنفيذ عقاري</h1>
+                    <p class="animate-on-scroll">فريق بخبرة عالية ورؤية حديثة في عالم العقارات. نخدم سوريا والعالم بمشاريع متكاملة بأعلى المعايير.</p>
+                    <a href="#contact" class="btn btn-primary btn-lg animate-on-scroll">تواصل معنا</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">حول شركتنا</h2>
+                    <p class="lead">شركتنا RL BENAA متخصصة في تصميم، تنفيذ، وتسويق العقاري. نعمل مع فريق محترف يجمع بين الإبداع والجودة لتحقيق مشاريع استثنائية.</p>
+                    <p>لينا زارت، مهندسة معمارية وصانعة محتوى للإعلانات، هي مؤسسة الشركة. تابعونا على وسائل التواصل الاجتماعي واليوتيوب للاطلاع على أحدث مشاريعنا.</p>
+                    <div class="mt-4">
+                        <a href="#services" class="btn btn-outline-primary me-2">خدماتنا</a>
+                        <a href="#projects" class="btn btn-outline-secondary">مشاريعنا</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="as.jpg" alt="تصميم معماري" class="img-fluid rounded shadow-lg animate-on-scroll">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="container">
+            <h2 class="section-title text-center">خدماتنا</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card service-card h-100 animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1080&q=80" alt="التصميم المعماري" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">تصميم معماري</h5>
+                            <p class="card-text">تصميمات عصرية ومبتكرة تلبي احتياجات العملاء بأعلى جودة. نقدم حلولاً إبداعية تجمع بين الجمال والوظيفية.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card service-card h-100 animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="تنفيذ المشاريع" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">تنفيذ مشاريع</h5>
+                            <p class="card-text">تنفيذ شامل ومتقن باستخدام المواد الأفضل لضمان الاستدامة. نضمن الجودة في كل مرحلة من مراحل البناء.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card service-card h-100 animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1073&q=80" alt="التسويق العقاري" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">تسويق عقاري</h5>
+                            <p class="card-text">استراتيجيات تسويقية فعالة لتسويق المشاريع العقارية محليا وعالميا. نضمن وصول مشاريعك إلى الجمهور المستهدف.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">فريقنا</h2>
+            <p class="text-center mb-5">تعرف على فريقنا المحترف الذي يعمل لتحقيق رؤيتك</p>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="team-member animate-on-scroll">
+                        <img src="gh..png" alt="لينا زارت" class="team-img">
+                        <h5>لينا زارت</h5>
+                        <p>مهندسة معمارية ومؤسسة الشركة</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <h2 class="section-title text-center">تواصل معنا</h2>
+            <p class="text-center mb-5">للاستفسارات أو التعاون، لا تتردد في التواصل معنا</p>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form animate-on-scroll">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" class="form-control" placeholder="الاسم الكامل" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="email" class="form-control" placeholder="البريد الإلكتروني" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="الموضوع" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="5" placeholder="رسالتك" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">إرسال الرسالة</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>RL BENAA</h5>
+                    <p>شركة رائدة في مجال التصميم والتنفيذ العقاري بتقنيات حديثة ورؤية إبداعية.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about" class="text-light">حول الشركة</a></li>
+                        <li><a href="#services" class="text-light">الخدمات</a></li>
+                        <li><a href="#contact" class="text-light">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>تابعنا</h5>
+                    <div class="social-links mt-3">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1)">
+            <p>© 2023 RL BENAA. جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // تأثيرات التمرير
+        document.addEventListener('DOMContentLoaded', function() {
+            // تقليص شريط التنقل عند التمرير
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('navbar-shrink');
+                } else {
+                    navbar.classList.remove('navbar-shrink');
+                }
+            });
+            
+            // كشف العناصر عند التمرير
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            
+            function checkScroll() {
+                // كشف العناصر الفردية
+                animateElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    
+                    if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+                        element.classList.add('animated');
+                    }
+                });
+            }
+            
+            // التحقق عند التحميل وعند التمرير
+            window.addEventListener('load', checkScroll);
+            window.addEventListener('scroll', checkScroll);
+            
+            // التمرير السلس عند النقر على الروابط
+            document.querySelectorAll('a.nav-link, a.btn').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (!targetId.startsWith('#')) return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Simple form handling (no backend, just validation)
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('شكرا لتواصلك معنا. سيتم الرد عليك قريبا.');
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>
